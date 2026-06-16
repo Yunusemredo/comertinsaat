@@ -1,26 +1,149 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-gold-50: #fbf8eb;
+  --color-gold-100: #f5edcc;
+  --color-gold-200: #ecda9b;
+  --color-gold-300: #dfc164;
+  --color-gold-400: #d4af37;
+  --color-gold-500: #b5902b;
+  --color-gold-600: #8f6e20;
+
+  --color-navy-950: #02040a;
+  --color-navy-900: #0a1128;
+  --color-navy-800: #1c2541;
+  --color-navy-700: #3a506b;
+
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-playfair), Georgia, serif;
+
+  --animate-fade-in-up: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-fade-in: fade-in 1s ease-out forwards;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Construction blueprint scan animation for hero */
+@keyframes blueprint-scan {
+  0%   { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
+}
+
+/* Floating crane arm sweep */
+@keyframes crane-sweep {
+  0%, 100% { transform: rotate(-8deg); }
+  50%       { transform: rotate(8deg); }
+}
+
+/* Subtle pulse for blueprint nodes */
+@keyframes node-pulse {
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50%       { opacity: 0.35; transform: scale(1.4); }
+}
+
+/* Hero content slides up from screen bottom to its top position after video ends */
+@keyframes slide-from-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(90vh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-content-reveal {
+  animation: slide-from-bottom 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-arrow-reveal {
+  animation: slide-from-bottom 1s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+  opacity: 0;
+}
+
+::selection {
+  background-color: var(--color-gold-400);
+  color: #02040a;
+}
+
+/* Light scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d4af37;
+}
+
+/* Light Glass Panel */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.07);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s ease;
+}
+.glass-panel-hover:hover {
+  background: rgba(255, 255, 255, 0.97);
+  border-color: rgba(212, 175, 55, 0.40);
+  box-shadow: 0 12px 32px -8px rgba(212, 175, 55, 0.12);
+  transform: translateY(-4px);
+}
+
+/* Hero blueprint grid scan — subtle moving construction grid */
+.construction-scan {
+  background-image:
+    linear-gradient(rgba(212, 175, 55, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, 0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: blueprint-scan 16s linear infinite;
+}
+
+/* Blueprint cross-node dots */
+.construction-nodes {
+  background-image: radial-gradient(circle, rgba(212, 175, 55, 0.25) 1.5px, transparent 1.5px);
+  background-size: 40px 40px;
+  animation: blueprint-scan 16s linear infinite, node-pulse 4s ease-in-out infinite;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  background-color: #ffffff;
+  /* Subtle construction dot grid — like an engineering graph paper */
+  background-image: radial-gradient(circle, rgba(212, 175, 55, 0.11) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-attachment: fixed;
 }
