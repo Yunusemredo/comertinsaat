@@ -445,7 +445,7 @@ export default function Home() {
 
       {/* 1. HEADER / NAVIGATION */}
       <header className="fixed top-0 left-0 w-full z-50 px-4 md:px-8 py-4">
-        <nav className="max-w-7xl mx-auto glass-panel rounded-2xl px-4 lg:px-6 py-3 flex items-center justify-between transition-all duration-300 hover:border-gold-400/35 gap-4">
+        <nav className="max-w-7xl mx-auto rounded-2xl px-4 lg:px-6 py-3 flex items-center justify-between transition-all duration-300 gap-4 border border-gold-400/20 shadow-md" style={{ background: 'rgba(255,255,255,0.97)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}>
 
           {/* Logo Container */}
           <div className="flex items-center gap-3 shrink-0">
@@ -494,7 +494,7 @@ export default function Home() {
 
         {/* Mobile Menu Dropdown */}
         <div className={`lg:hidden max-w-7xl mx-auto overflow-hidden transition-all duration-300 ease-in-out ${mobileMenuOpen ? "max-h-96 opacity-100 mt-2" : "max-h-0 opacity-0"}`}>
-          <div className="glass-panel rounded-2xl px-6 py-2 flex flex-col">
+          <div className="rounded-2xl px-6 py-2 flex flex-col border border-gold-400/20 shadow-lg" style={{ background: 'rgba(255,255,255,0.97)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}>
             {[
               { href: "#hero", label: "Ana Sayfa" },
               { href: "#almira", label: "Almira Konakları" },
