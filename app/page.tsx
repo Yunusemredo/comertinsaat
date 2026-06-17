@@ -180,6 +180,9 @@ export default function Home() {
   const [formData, setFormData] = useState({ name: "", phone: "", project: "Almira Konakları", msg: "" });
   const [formSubmitted, setFormSubmitted] = useState(false);
 
+  // Mobile menu state
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   // Banner video ended state
   const [videoEnded, setVideoEnded] = useState(false);
 
@@ -443,15 +446,15 @@ export default function Home() {
       {/* 1. HEADER / NAVIGATION */}
       <header className="fixed top-0 left-0 w-full z-50 px-4 md:px-8 py-4">
         <nav className="max-w-7xl mx-auto glass-panel rounded-2xl px-4 lg:px-6 py-3 flex items-center justify-between transition-all duration-300 hover:border-gold-400/35 gap-4">
-          
+
           {/* Logo Container */}
           <div className="flex items-center gap-3 shrink-0">
-            <span className="text-lg md:text-xl xl:text-2xl font-serif font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-gold-400 to-amber-200 whitespace-nowrap">
+            <span className="text-base md:text-xl xl:text-2xl font-serif font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-gold-400 to-amber-200 whitespace-nowrap">
               ATM CÖMERT İNŞAAT
             </span>
           </div>
-          
-          {/* Nav Links */}
+
+          {/* Nav Links - Desktop only */}
           <div className="hidden lg:flex items-center gap-4 xl:gap-6 text-xs xl:text-sm font-medium tracking-wide shrink">
             <a href="#hero" className="text-gray-600 hover:text-gold-500 transition-colors whitespace-nowrap">Ana Sayfa</a>
             <a href="#almira" className="text-gray-600 hover:text-gold-500 transition-colors whitespace-nowrap">Almira Konakları</a>
@@ -462,22 +465,56 @@ export default function Home() {
             <a href="#iletisim" className="text-gray-600 hover:text-gold-500 transition-colors whitespace-nowrap">İletişim</a>
           </div>
 
-          {/* Button Container */}
-          <div className="flex items-center gap-3 shrink-0">
-            <a 
+          {/* Right side: CTA Button + Hamburger */}
+          <div className="flex items-center gap-2 shrink-0">
+            <a
               href="https://wa.me/905070559265?text=Merhaba,%20web%20sitenizden%20ulaşıyorum.%20Almira%20Konakları%20projesi%20hakkında%20bilgi%20alabilir%20miyim?"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 text-xs md:text-sm font-bold tracking-wide rounded-xl bg-gradient-to-r from-gold-500 to-gold-400 text-navy-950 hover:from-gold-400 hover:to-gold-300 transition-all duration-300 shadow-md hover:shadow-gold-400/20 hover:scale-[1.03] flex items-center gap-2 whitespace-nowrap"
+              className="px-3 md:px-4 py-2 text-xs md:text-sm font-bold tracking-wide rounded-xl bg-gradient-to-r from-gold-500 to-gold-400 text-navy-950 hover:from-gold-400 hover:to-gold-300 transition-all duration-300 shadow-md hover:shadow-gold-400/20 hover:scale-[1.03] flex items-center gap-2 whitespace-nowrap"
             >
-              {/* WhatsApp Icon */}
               <svg className="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
                 <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.803-4.394 9.806-9.799.002-2.618-1.016-5.08-2.87-6.934C16.356 2.016 13.9 1 11.997 1 6.59 1 2.187 5.4 2.185 10.805c-.001 1.562.415 3.09 1.202 4.47l-.992 3.613 3.704-.972.493.282z"/>
               </svg>
-              Destek Hattı
+              <span className="hidden sm:inline">Destek Hattı</span>
             </a>
+
+            {/* Hamburger - Mobile only */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden flex flex-col justify-center items-center w-9 h-9 rounded-xl border border-gray-200 hover:border-gold-400/50 hover:bg-gold-400/5 transition-all gap-[5px]"
+              aria-label="Menüyü aç/kapat"
+            >
+              <span className={`block w-5 h-[2px] bg-gray-600 transition-all duration-300 origin-center ${mobileMenuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
+              <span className={`block w-5 h-[2px] bg-gray-600 transition-all duration-300 ${mobileMenuOpen ? "opacity-0" : ""}`} />
+              <span className={`block w-5 h-[2px] bg-gray-600 transition-all duration-300 origin-center ${mobileMenuOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
+            </button>
           </div>
         </nav>
+
+        {/* Mobile Menu Dropdown */}
+        <div className={`lg:hidden max-w-7xl mx-auto overflow-hidden transition-all duration-300 ease-in-out ${mobileMenuOpen ? "max-h-96 opacity-100 mt-2" : "max-h-0 opacity-0"}`}>
+          <div className="glass-panel rounded-2xl px-6 py-2 flex flex-col">
+            {[
+              { href: "#hero", label: "Ana Sayfa" },
+              { href: "#almira", label: "Almira Konakları" },
+              { href: "#interaktif-kesif", label: "İnteraktif Keşif" },
+              { href: "#satilik", label: "Satılık İlanlar" },
+              { href: "#reels", label: "Şantiye Günlüğü" },
+              { href: "#hakkimizda", label: "Hakkımızda" },
+              { href: "#iletisim", label: "İletişim" },
+            ].map((item, i, arr) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`py-3 text-sm font-medium text-gray-700 hover:text-gold-500 transition-colors ${i < arr.length - 1 ? "border-b border-gray-100" : ""}`}
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+        </div>
       </header>
 
       {/* 2. HERO SECTION */}
